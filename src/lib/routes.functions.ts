@@ -122,7 +122,7 @@ Return ONLY valid minified JSON (no markdown, no prose) of this exact shape:
 Exactly 3 routes. The first must have highlight:true and label "Recommended".`;
 
 export const suggestRoutes = createServerFn({ method: "POST" })
-  .validator((input: unknown) => SuggestInput.parse(input))
+  .inputValidator((input: unknown) => SuggestInput.parse(input))
   .handler(async ({ data }) => {
     const origin = data.origin?.trim() || "current location";
     const destination = data.destination.trim();
