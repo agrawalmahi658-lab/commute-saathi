@@ -1,29 +1,37 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { CommuteSaathiApp } from "@/components/CommuteSaathiApp";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "CommuteSaathi — AI Mobility Companion for Bharat" },
+      {
+        name: "description",
+        content:
+          "CommuteSaathi is your AI travel companion for smarter, safer and cheaper commutes across Bharat — voice-first, multilingual, and built for every commuter.",
+      },
+      { property: "og:title", content: "CommuteSaathi — AI Mobility Companion for Bharat" },
+      {
+        property: "og:description",
+        content:
+          "Smarter, safer and cheaper commutes across Bharat. Voice-first AI mobility companion for daily workers, students, delivery partners and women commuters.",
+      },
     ],
   }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+  // motion + recharts touch the DOM; render only on the client.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900" />
+    );
+  }
+
+  return <CommuteSaathiApp />;
 }
