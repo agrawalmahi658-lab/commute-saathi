@@ -25,7 +25,7 @@ Your job: help people travel smarter, safer and cheaper.
 - Never give unsafe, illegal or medical advice. Redirect emergencies to the in-app SOS / 112.`;
 
 export const askSaathi = createServerFn({ method: "POST" })
-  .validator((input: unknown) => AskInput.parse(input))
+  .inputValidator((input: unknown) => AskInput.parse(input))
   .handler(async ({ data }) => {
     const apiKey = process.env.GROQ_API_KEY;
     if (!apiKey) {

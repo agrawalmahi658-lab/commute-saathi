@@ -370,15 +370,16 @@ const TR = {
 } as const;
 
 // ─── LANGUAGE CONTEXT ─────────────────────────────────────────────────────────
-const LangCtx = createContext<{ lang: LangCode; t: typeof TR["en"]; setLang: (l: LangCode) => void }>({
-  lang: "en", t: TR.en, setLang: () => {},
+type Translations = typeof TR["en"];
+const LangCtx = createContext<{ lang: LangCode; t: Translations; setLang: (l: LangCode) => void }>({
+  lang: "en", t: TR.en as Translations, setLang: () => {},
 });
 function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<LangCode>(() => {
     try { return (localStorage.getItem("saathi_lang") as LangCode) || "en"; } catch { return "en"; }
   });
   const setLang = (l: LangCode) => { setLangState(l); try { localStorage.setItem("saathi_lang", l); } catch {} };
-  return <LangCtx.Provider value={{ lang, t: TR[lang], setLang }}>{children}</LangCtx.Provider>;
+  return <LangCtx.Provider value={{ lang, t: TR[lang] as Translations, setLang }}>{children}</LangCtx.Provider>;
 }
 const useLang = () => useContext(LangCtx);
 
