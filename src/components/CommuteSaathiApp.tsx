@@ -856,7 +856,7 @@ function UserTypeScreen({ navigate }: { navigate: NavFnT }) {
     if (!selected) return;
     update({ userType: selected });
     if (user) {
-      const typeKey = t.userTypes[t.userTypes.indexOf(selected as string)];
+      const typeKey = t.userTypes[t.userTypes.indexOf(selected as typeof t.userTypes[number])];
       await upsertUserProfile(user.uid, { userType: typeKey }).catch(() => {});
     }
     navigate("permissions");
