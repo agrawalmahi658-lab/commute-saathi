@@ -1098,7 +1098,7 @@ function HomeScreen({ navigate }: { navigate: NavFnT }) {
   const { address: gpsAddress, loading: gpsResolving } = useAddressFromCoords(geo.coords ?? null);
   const gpsLabel = geo.status === "granted" && geo.coords
     ? (gpsResolving ? "Identifying location…" : (gpsAddress ?? `${geo.coords.lat.toFixed(4)}, ${geo.coords.lng.toFixed(4)}`))
-    : geo.status === "pending" ? "Getting location…" : "Enable GPS";
+    : geo.status === "loading" ? "Getting location…" : "Enable GPS";
   const gpsLive = geo.status === "granted" && !!geo.coords;
 
   return (
@@ -1124,16 +1124,16 @@ function HomeScreen({ navigate }: { navigate: NavFnT }) {
         className={`w-full rounded-2xl px-4 py-2.5 mb-4 flex items-center gap-3 border transition-all ${
           gpsLive
             ? "bg-emerald-50 border-emerald-200"
-            : geo.status === "pending"
+            : geo.status === "loading"
               ? "bg-amber-50 border-amber-200"
               : "bg-slate-50 border-slate-200"
         }`}>
-        <div className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 ${gpsLive?"bg-emerald-500":geo.status==="pending"?"bg-amber-400":"bg-slate-300"}`}>
+        <div className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 ${gpsLive?"bg-emerald-500":geo.status==="loading"?"bg-amber-400":"bg-slate-300"}`}>
           <MapPin size={15} className="text-white" />
         </div>
         <div className="flex-1 min-w-0 text-left">
-          <p className={`text-xs font-black ${gpsLive?"text-emerald-700":geo.status==="pending"?"text-amber-700":"text-slate-500"}`}>
-            {gpsLive ? "📍 Live Location Active" : geo.status==="pending" ? "⏳ Detecting location…" : "📍 Tap to enable GPS"}
+          <p className={`text-xs font-black ${gpsLive?"text-emerald-700":geo.status==="loading"?"text-amber-700":"text-slate-500"}`}>
+            {gpsLive ? "📍 Live Location Active" : geo.status==="loading" ? "⏳ Detecting location…" : "📍 Tap to enable GPS"}
           </p>
           <p className={`text-[11px] truncate ${gpsLive?"text-emerald-600":"text-slate-400"}`}>{gpsLabel}</p>
         </div>
